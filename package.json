@@ -1,0 +1,14 @@
+{
+  "name": "eth-challenge",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "Oliver Gramberg",
+  "license": "ISC",
+  "description": "ETH job interview challenge",
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^26.6.5"
+  }
+}
