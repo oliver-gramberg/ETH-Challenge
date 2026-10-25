@@ -30,13 +30,14 @@ test('Verify ETH site according to challenge', async ({ page }) => {
   });
 
   await test.step('Verify department staff page and navigate to Paulina Motyka\'s details', async () => {
-    await staffPage.verifyBreadcrumb();
-    personDetailsPage = await staffPage.goToPersonDetails();
+    await staffPage.verifyPersonCount(6); // Spec says 4.
+    await staffPage.verifyBreadcrumbs();
+    personDetailsPage = await staffPage.goToPersonDetails('Paulina Motyka');
   });
 
   await test.step('Verify email, phone, breadcrumbs on Paulina Motyka\'s person detail page', async () => {
     await personDetailsPage.verifyEmail('paulina.motyka@inf.ethz.ch');
     await personDetailsPage.verifyPhone('+41 44 632 57 79');
-    await personDetailsPage.verifyBreadcrumb();
+    await personDetailsPage.verifyBreadcrumbs();
   });
 });

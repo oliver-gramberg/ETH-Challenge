@@ -1,8 +1,12 @@
-import { type Page } from '@playwright/test';
+import { type Locator, type Page } from '@playwright/test';
 import { InformaticsDepartmentPage } from './informaticsdepartmentpage';
 
 export class EthHomePage {
-  constructor(private readonly page: Page) {}
+  private readonly departmentSelector: Locator;
+
+  constructor(private readonly page: Page) {
+    this.departmentSelector = page.getByLabel('Wählen Sie ein Departement');
+  }
 
   async open() {
     await this.page.goto('https://ethz.ch/de.html');
@@ -10,7 +14,7 @@ export class EthHomePage {
   }
 
   async goToInformaticsDepartment(): Promise<InformaticsDepartmentPage> {
-    await this.page.getByLabel('Wählen Sie ein Departement').selectOption('https://inf.ethz.ch/de/');
+    await this.departmentSelector.selectOption('https://inf.ethz.ch/de/');
     return new InformaticsDepartmentPage(this.page);
   }
 }
