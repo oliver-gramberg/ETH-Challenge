@@ -1,17 +1,16 @@
 import { expect, type Locator, type Page } from '@playwright/test';
+import { BasePage } from './base-page';
 
-export class PersonDetailsPage {
+export class PersonDetailsPage extends BasePage {
   private readonly phoneLocator: Locator;
   private readonly emailLocator: Locator;
 
-  constructor(private readonly page: Page) {
+  constructor(page: Page) {
+    super(page);
+    this.url = '';
+    this.breadcrumbName = 'Person detail';
     this.phoneLocator = page.locator('li', { hasText: /Telefon/ });
     this.emailLocator = page.locator('li', { hasText: /E-Mail/ });
-  }
-
-  async verifyBreadcrumbs() {
-    await expect(this.page.getByLabel('Breadcrumb'))
-      .toContainText('Startseite Personen Personen A-Z Person detail');
   }
 
   async verifyEmail(email: string) {

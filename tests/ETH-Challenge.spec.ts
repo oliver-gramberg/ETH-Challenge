@@ -1,6 +1,8 @@
 import { test } from '@playwright/test';
 import { EthHomePage } from './pages/eth-homepage';
 import { InformaticsDepartmentPage } from './pages/informaticsdepartmentpage';
+import { InformaticsDepartmentAdministrationPage } from './pages/informaticsdepartmentadministrationpage';
+import { InformaticsDepartmentPersonnelAZPage } from './pages/informaticsdepartmentpersonnel-a-z-page';
 import { InformaticsDepartmentPersonnelPage } from './pages/informaticsdepartmentpersonnelpage';
 import { InformaticsDepartmentStaffPage } from './pages/informaticsdepartmentstaffpage';
 import { PersonDetailsPage } from './pages/persondetailspage';
@@ -31,13 +33,15 @@ test('Verify ETH site according to challenge', async ({ page }) => {
 
   await test.step('Verify department staff page and navigate to Paulina Motyka\'s details', async () => {
     await staffPage.verifyPersonCount(6); // Spec says 4.
-    await staffPage.verifyBreadcrumbs();
+    const administrationPage = new InformaticsDepartmentAdministrationPage(page);
+    await staffPage.verifyBreadcrumbs([departmentPage, personnelPage, administrationPage, staffPage]);
     personDetailsPage = await staffPage.goToPersonDetails('Paulina Motyka');
   });
 
   await test.step('Verify email, phone, breadcrumbs on Paulina Motyka\'s person detail page', async () => {
     await personDetailsPage.verifyEmail('paulina.motyka@inf.ethz.ch');
     await personDetailsPage.verifyPhone('+41 44 632 57 79');
-    await personDetailsPage.verifyBreadcrumbs();
+    const personnelAZPage = new InformaticsDepartmentPersonnelAZPage(page);
+    await personDetailsPage.verifyBreadcrumbs([departmentPage, personnelPage, personnelAZPage, personDetailsPage]);
   });
 });
