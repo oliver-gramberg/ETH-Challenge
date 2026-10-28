@@ -6,7 +6,7 @@ export class InformaticsDepartmentPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.url = 'https://inf.ethz.ch/de/';
-    this.breadcrumbName = '';
+    this.breadcrumbName = 'Startseite';
   }
 
   async goToInformaticsDepartmentPersonnel(): Promise<InformaticsDepartmentPersonnelPage> {
